@@ -1,0 +1,21 @@
+body {
+    background-color: lightgray;
+    align-items: center;
+}
+
+
+
+section > div {
+    border: solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 20%;
+    margin-left: 40%;
+}
+
+button {
+    text-align: center;
+    font-size: large;
+    width: 400px;
+}
