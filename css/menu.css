@@ -8,8 +8,8 @@ body {
 section > div {
     border: solid black;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-evenly;
     width: 20%;
     margin-left: 40%;
 }
@@ -17,5 +17,19 @@ section > div {
 button {
     text-align: center;
     font-size: large;
-    width: 400px;
+    /* width: 400px; */
+}
+
+#buttons {
+   
+    
+}
+
+nav {
+    display: flex;
+    justify-content: row;
+}
+
+.nav_links {
+
 }
