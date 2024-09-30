@@ -29,10 +29,4 @@
  // redirect to high score page
     }
     
-
-
-
-
-
-
 })();
