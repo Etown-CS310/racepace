@@ -30,6 +30,16 @@ section > div {
     width: 30%;
     margin-left: 35%;
 }
+a:visited, a{
+    background-color:darkred;
+    color:white;
+    padding:25px 25px;
+    text-decoration: none;
+    border:5px solid;
+}
+a:hover{
+    background-color: rgb(118, 1, 1);
+}
 
 button {
     border: solid black;
