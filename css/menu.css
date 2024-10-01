@@ -1,7 +1,7 @@
 body {
     /* background-color: lightgray; */
     align-items: center;
-    background-image: url("../images/Track.png");
+    background-image: url("../images/Track1.png");
     background-size: cover;
 }
 
@@ -29,14 +29,14 @@ section > div {
     margin-left: 35%;
 }
 a:visited, a{
-    background-color:darkred;
+    /* background-color:darkred; */
     color:white;
     padding:25px 25px;
     text-decoration: none;
-    border:5px solid;
+    /* border:5px solid; */
 }
 a:hover{
-    background-color: rgb(118, 1, 1);
+    background-color: rgb(85, 160, 185);
 }
 
 button {
