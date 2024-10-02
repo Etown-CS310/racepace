@@ -6,21 +6,22 @@
 
 
    function init() {
-      window.addEventListener("click", character);
-      window.addEventListener("click", im_ready);
+      let ready = document.getElementById("ready");
+      let character = document.getElementById("charsel");
+
+      character.addEventListener("click", characterfunc);
+      ready.addEventListener("click", im_ready);
 
    }
 
    function im_ready() {
  // redirect to play
-   let url_ready = 'im_ready.html';
-   window.location.href = url_ready;
+   window.location.href = '../menu_page/im_ready.html';
    }
 
-   function character() {
+   function characterfunc() {
  // redirect to character selection
-   let url_char = 'character.html';
-   window.location.href = url_char;      
+   window.location.href = '../menu_page/character.html';      
    }
     
 })();
