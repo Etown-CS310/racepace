@@ -67,7 +67,7 @@ ul {
 nav {
     display: flex;
     justify-content: center;
-    background-color: lightblue;
+    background-color: rgb(173, 216, 230, .9);
     
 }
 
