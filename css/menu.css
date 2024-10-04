@@ -3,6 +3,8 @@ body {
     align-items: center;
     background-image: url("../images/Track1.png");
     background-size: cover;
+    font-family:'Courier New', Courier, monospace;
+
 }
 
 h1 {
@@ -25,8 +27,8 @@ section > div {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 30%;
-    margin-left: 35%;
+    width: 300px;
+    /* margin-left: 35%; */
 }
 a:visited, a{
     /* background-color:darkred; */
@@ -45,11 +47,14 @@ button {
     font-size: large;
     margin: 20px;
     font-size: 30px;
+    background-color: rgb(173, 216, 230);
+    font-family:monospace;
+
     
 }
 
 button:hover {
-    background-color: lightgrey;
+    background-color: rgb(85, 160, 185);
 }
 
 #buttons {
@@ -68,6 +73,7 @@ nav {
     display: flex;
     justify-content: center;
     background-color: rgb(173, 216, 230, .9);
+   
     
 }
 
