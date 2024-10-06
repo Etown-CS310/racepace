@@ -10,13 +10,28 @@ h3{
 input{
     text-align: left;
 }
-#loginbox{
+.box{
     padding:100px 30px;
     width:300px;
     background-color: rgb(173, 216, 230, .9);
 }
+
 #login{
   font-family: "Bungee Tint", sans-serif;
   font-weight: 400;
   font-style: normal;
+}
+.loginButton{
+  margin-top: 20px;
+  margin:20px 10px;
+  background-color: darkred;
+  color:white;
+  border:white 4px solid;
+  padding: 10px 20px;
+}
+.hidden{
+  display: none;
+}
+.errorTXT{
+  color:red;
 }
