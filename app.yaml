@@ -4,6 +4,7 @@ service: default
 env: standard
 
 handlers:
+# Serve the main pages
 - url: /
   static_files: index.html
   upload: index.html
@@ -16,46 +17,18 @@ handlers:
   static_files: menu.html
   upload: menu.html
 
-- url: /css/game.css
-  static_files: game.css
-  upload: css/game.css
+# Serve the CSS files
+- url: /css
+  static_dir: css
 
-- url: /css/index.css
-  static_files: index.css
-  upload: css/index.css
+# Serve the JavaScript files
+- url: /js
+  static_dir: js
 
-- url: /css/menu.css
-  static_files: menu.css
-  upload: css/menu.css
+# Serve the menu page HTML files
+- url: /menu_page
+  static_dir: menu_page
 
-- url: /js/game.js
-  static_files: game.js
-  upload: js/game.js
-
-- url: /js/index.js
-  static_files: index.js
-  upload: js/index.js
-
-- url: /js/menu.js
-  static_files: menu.js
-  upload: js/menu.js
-
-- url: /menu_page/achievements.html
-  static_files: achievements.html
-  upload: menu_page/achievements.html
-
-- url: /menu_page/character.html
-  static_files: character.html
-  upload: menu_page/character.html
-
-- url: menu_page/high_scores.html
-  static_files: high_scores.html
-  upload: menu_page/high_scores.html
-
-- url: /menu_page/im_ready.html
-  static_files: im_ready.html
-  upload: menu_page/im_ready.html
-
-- url: /menu_page/settings.html
-  static_files: settings.html
-  upload: menu_page/settings.html
+# Serve image files if they exist in an "Images" directory
+- url: /images
+  static_dir: Images
