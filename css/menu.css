@@ -28,16 +28,16 @@ section > div {
     flex-direction: column;
     justify-content: space-evenly;
     width: 300px;
-    /* margin-left: 35%; */
 }
-a:visited, a{
-    /* background-color:darkred; */
+
+nav a{
     color:white;
     padding:25px 25px;
     text-decoration: none;
-    /* border:5px solid; */
 }
-a:hover{
+
+
+nav a:hover{
     background-color: rgb(85, 160, 185);
 }
 
@@ -77,6 +77,21 @@ nav {
     
 }
 
-/* .nav_links {
+table.center {
+    text-align: center;
+    border-collapse: collapse;
+    border: 2px solid rgb(140 140 140);
+    font-size: 50px;
+    letter-spacing: 1px;
+    margin-left:auto; 
+    margin-right:auto;
+    margin-top: 100px;
+    background-color: rgb(173, 216, 230, .9);
 
-} */
+}
+
+th, td {
+  border: 1px solid rgb(160 160 160);
+  padding: 8px 10px;
+  font-size: 50px;
+}
