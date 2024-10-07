@@ -6,7 +6,7 @@
     <title>racepace login</title>
 
     <!-- stylesheets -->
-    <link href="css/menu.css" rel="stylesheet">
+    <link href="css/general.css" rel="stylesheet">
     <link href="css/index.css" rel="stylesheet">
 
     <!-- RacePace Font -->
@@ -46,12 +46,19 @@
     
     </div>
     <div class="box hidden" id="regBox">
-        <h3>Username</h3>
-        <input type="text" value="" id="regUsername">
-        <h3>Password</h3>
-        <input type="password" value="" id="regPassword">
-        <button id="regButton" class="loginButton">Register</button>
-        <button id="showLog" class="loginButton">Back to Login</button>
+        <div>
+            <h3>Username</h3>
+            <input type="text" value="" id="regUsername">
+            <h3>Password</h3>
+            <input type="password" value="" class="regPassword">
+            <h5>Re-Enter Password</h5>
+            <input type="password" value="" class="regPassword">
+            <p class="errorTXT" id="regErr"></p>
+        </div>
+        <div>
+            <button id="regButton" class="loginButton">Register</button>
+            <button id="showLog" class="loginButton">Back to Login</button>
+        </div>
     </div>
     
     

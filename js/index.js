@@ -25,17 +25,27 @@ function login(){
 
 }
 function register(){
-    location.href ="menu.html";
+    let passwords=document.getElementsByClassName("regPassword");
+    if(passwords[0].value==passwords[1].value){
+        location.href ="menu.html";
+    }
+    else{
+        document.getElementById("regErr").innerText="Passwords Must Match";
+    }
 }
 
 function showRegistration(){
     document.getElementById("logBox").classList.add("hidden");
-    document.getElementById("regBox").classList.remove("hidden");
+    let regBox=document.getElementById("regBox");
+    regBox.classList.remove("hidden");
+    regBox.classList.add("regBox");
     document.getElementById("login").innerText="register";
 }
 
 function showLogin(){
-    document.getElementById("regBox").classList.add("hidden");
+    let regBox=document.getElementById("regBox");
+    regBox.classList.remove("regBox");
+    regBox.classList.add("hidden");
     document.getElementById("logBox").classList.remove("hidden");
     document.getElementById("login").innerText="login";
 }
