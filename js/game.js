@@ -50,7 +50,7 @@ window.onload = function() {
 
     // draw initial dinosaur
     dinoImg = new Image();
-    dinoImg.src = "Images/dino.png";
+    dinoImg.src = "Images/bigestMan.png";
     dinoImg.onload = function() {
         context.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height);
     }
@@ -90,7 +90,7 @@ function update() {
 
         if (detectCollision(dino, cactus)) {
             gameOver = true;
-            dinoImg.src = "Images/dino-dead.png";
+            dinoImg.src = "Images/DeadMan.png";
             dinoImg.onload = function() {
                 context.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height);
             }
