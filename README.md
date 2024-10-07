@@ -8,7 +8,7 @@
 
 ## Website
 
-  -  Click [HERE](https://racepace-437415.uk.r.appspot.com/menu.html) to go to the website
+  -  Click [HERE](https://racepace-437415.uk.r.appspot.com/) to go to the website
 
 ## Inspiration
 
