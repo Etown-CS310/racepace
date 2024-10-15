@@ -1,32 +1,32 @@
 //board
 let board;
-let boardWidth = 750;
-let boardHeight = 250; // corrected the typo here
+let boardWidth = 1000; // was 750
+let boardHeight = 500; // was 250 corrected the typo here
 let context;
 
-//dino
-let dinoWidth = 88;
-let dinoHeight = 94;
-let dinoX = 50;
-let dinoY = boardHeight - dinoHeight; // now uses the correct boardHeight
-let dinoImg;
+//character
+let characterWidth = 88;
+let characterHeight = 94;
+let characterX = 50;
+let characterY = boardHeight - characterHeight; // now uses the correct boardHeight
+let charcterImg;
 
-let dino = {
-    x : dinoX,
-    y : dinoY,
-    width : dinoWidth,
-    height : dinoHeight
+let character = {
+    x : characterX,
+    y : characterY,
+    width : characterWidth,
+    height : characterHeight
 }
 
 //obstacle
-let cactusArray = [];
+let objectArray = [];
 
 let cactus1Width = 34;
 let cactus2Width = 69;
 let cactus3Width = 102;
 
 let cactusHeight = 70;
-let cactusX = 700;
+let cactusX = 900; //was 700
 let cactusY = boardHeight - cactusHeight;
 
 let cactus1Img;
@@ -48,11 +48,11 @@ window.onload = function() {
 
     context = board.getContext("2d"); // used for drawing on the board
 
-    // draw initial dinosaur
-    dinoImg = new Image();
-    dinoImg.src = "Images/bigestMan.png";
-    dinoImg.onload = function() {
-        context.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height);
+    // draw initial charactersaur
+    charcterImg = new Image();
+    charcterImg.src = "Images/bigestMan.png";
+    charcterImg.onload = function() {
+        context.drawImage(charcterImg, character.x, character.y, character.width, character.height);
     }
 
     cactus1Img = new Image();
@@ -66,7 +66,7 @@ window.onload = function() {
 
     requestAnimationFrame(update); // this function will call the update function 60 times per second
     setInterval(placeCactus, 1000); // this function will call the placeCactus function every second
-    document.addEventListener("keydown", moveDino);
+    document.addEventListener("keydown", movecharacter);
 }
 
 function update() {
@@ -77,22 +77,22 @@ function update() {
 
     context.clearRect(0, 0, boardWidth, boardHeight);
 
-    //dino
+    //character
     velocityY += gravity;
-    dino.y = Math.min(dino.y + velocityY, dinoY); //apply gravity to current dino.y, making sure it doesn't exceed the ground level
-    context.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height);
+    character.y = Math.min(character.y + velocityY, characterY); //apply gravity to current character.y, making sure it doesn't exceed the ground level
+    context.drawImage(charcterImg, character.x, character.y, character.width, character.height);
 
     //cactus
-    for (let i = 0; i < cactusArray.length; i++) {
-        let cactus = cactusArray[i];
+    for (let i = 0; i < objectArray.length; i++) {
+        let cactus = objectArray[i];
         cactus.x += velocityX;
         context.drawImage(cactus.img, cactus.x, cactus.y, cactus.width, cactus.height);
 
-        if (detectCollision(dino, cactus)) {
+        if (detectCollision(character, cactus)) {
             gameOver = true;
-            dinoImg.src = "Images/DeadMan.png";
-            dinoImg.onload = function() {
-                context.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height);
+            charcterImg.src = "Images/DeadMan.png";
+            charcterImg.onload = function() {
+                context.drawImage(charcterImg, character.x, character.y, character.width, character.height);
             }
         }
     }
@@ -104,12 +104,12 @@ function update() {
     context.fillText(score, 5, 20);
 }
 
-function moveDino(e){
+function movecharacter(e){
     if (gameOver) {
         return;
     }
 
-    if ((e.code == "Space" || e.code == "ArrowUp") && dino.y == dinoY) {
+    if ((e.code == "Space" || e.code == "ArrowUp") && character.y == characterY) {
         //jump
         velocityY = -10;
     }
@@ -134,22 +134,22 @@ function placeCactus() {
     if (placeCactusChance > .90) { //10% you get cactus 3
         cactus.img = cactus3Img;
         cactus.width = cactus3Width;
-        cactusArray.push(cactus);
+        objectArray.push(cactus);
     }
     else if (placeCactusChance > .70) { //30% chance you get cactus2
         cactus.img = cactus2Img;
         cactus.width = cactus2Width;
-        cactusArray.push(cactus);
+        objectArray.push(cactus);
     }
 
     else if (placeCactusChance > .50) { //50% you get cactus1
         cactus.img = cactus1Img;
         cactus.width = cactus1Width;
-        cactusArray.push(cactus);
+        objectArray.push(cactus);
     }
 
-    if (cactusArray.length > 5) {
-        cactusArray.shift(); //remove the first element from the array so that the array doesn't constantly grow
+    if (objectArray.length > 10) {
+        objectArray.shift(); //remove the first element from the array so that the array doesn't constantly grow
     }
 }
 
