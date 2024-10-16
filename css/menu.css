@@ -112,7 +112,9 @@ th, td {
 }
 
 .carousel-item img {
-    width: 100%;
+    width: 40%;
     height: auto;
     margin-top: 10px;
+    margin-left:30%;
 }
+
