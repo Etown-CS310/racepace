@@ -117,4 +117,15 @@ th, td {
     margin-top: 10px;
     margin-left:30%;
 }
-
+.carousel-item p {
+    /* width: 40%; */
+    height: auto;
+    margin-top: 10px;
+    text-align: center;
+    margin: auto;
+    font-size: 40px;
+    background-color: lightgrey;
+    border-radius: 20px;
+    font-family:Courier;
+    
+}
