@@ -7,3 +7,12 @@ body {
     background-color: lightgray;
     border-bottom: solid black;
 }
+
+.gameButton {
+    margin-top: 20px;
+    margin:20px 10px;
+    background-color: rgb(173, 216, 230);
+    color:white;
+    border:white 4px solid;
+    padding: 10px 20px;
+}

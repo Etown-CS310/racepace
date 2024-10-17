@@ -1,12 +1,12 @@
 //board
 let board;
-let boardWidth = 1000; // was 750
-let boardHeight = 500; // was 250 corrected the typo here
+let boardWidth = (window.innerWidth*0.75); // was 750
+let boardHeight = (window.innerHeight*0.5); // was 250 corrected the typo here
 let context;
 
 //character
-let characterWidth = 88;
-let characterHeight = 94;
+let characterWidth = 44;
+let characterHeight = 47;
 let characterX = 50;
 let characterY = boardHeight - characterHeight; // now uses the correct boardHeight
 let charcterImg;
@@ -21,12 +21,12 @@ let character = {
 //obstacle
 let objectArray = [];
 
-let cactus1Width = 34;
-let cactus2Width = 69;
-let cactus3Width = 102;
+let cactus1Width = 17;
+let cactus2Width = 35;
+let cactus3Width = 51;
 
-let cactusHeight = 70;
-let cactusX = 900; //was 700
+let cactusHeight = 35;
+let cactusX = 1000; //was 700
 let cactusY = boardHeight - cactusHeight;
 
 let cactus1Img;
@@ -168,12 +168,18 @@ function detectCollision(a, b) {
     function init() {
        let back = document.getElementById("back");
        back.addEventListener("click", backfunc);
+       let reload = document.getElementById("reload");
+       reload.addEventListener("click", reloadfunc);
  
     }
  
     function backfunc() {
   // redirect to play
     window.location.href = 'menu.html';
+    }
+
+    function reloadfunc() {
+        location.reload(true); //eventually be a reset for the canvas page
     }
      
  })();
