@@ -127,5 +127,9 @@ th, td {
     background-color: lightgrey;
     border-radius: 20px;
     font-family:Courier;
-    
+}
+
+.carousel-item {
+    background-color: hwb(0 0% 100% / 0.326);
+    border-radius: 20px;
 }
