@@ -17,6 +17,7 @@ function login(){
     let password=document.getElementById("password").value;
     if(username=="root" & password==""){
         location.href ="menu.html";
+
     }
     else{
         document.getElementById("logErr").innerText="Invalid Username or Password";

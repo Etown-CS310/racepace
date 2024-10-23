@@ -26,6 +26,7 @@ nav {
     display: flex;
     justify-content: center;
     background-color: rgb(173, 216, 230, .9);
+    margin-bottom: 20px;
 }
 
 nav a{
@@ -33,7 +34,9 @@ nav a{
     padding:25px 25px;
     text-decoration: none;
 }
-
+ul{
+    list-style-type: none;
+}
 
 nav a:hover{
     background-color: rgb(85, 160, 185);
