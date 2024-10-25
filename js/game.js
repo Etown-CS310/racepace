@@ -1,185 +1,215 @@
-//board
-let board;
-let boardWidth = (window.innerWidth*0.75); // was 750
-let boardHeight = (window.innerHeight*0.5); // was 250 corrected the typo here
-let context;
+import Player from "../js/Player.js";
+import Ground from "../js/Ground.js";
+import CactiController from "../js/CactiController.js";
+import Score from "../js/Score.js";
 
-//character
-let characterWidth = 44;
-let characterHeight = 47;
-let characterX = 50;
-let characterY = boardHeight - characterHeight; // now uses the correct boardHeight
-let charcterImg;
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
 
-let character = {
-    x : characterX,
-    y : characterY,
-    width : characterWidth,
-    height : characterHeight
-}
+const GAME_SPEED_START = 1; // 1.0
+const GAME_SPEED_INCREMENT = 0.00001;
 
-//obstacle
-let objectArray = [];
+const GAME_WIDTH = 800;
+const GAME_HEIGHT = 200;
+const PLAYER_WIDTH = 88 / 1.5; //58
+const PLAYER_HEIGHT = 94 / 1.5; //62
+const MAX_JUMP_HEIGHT = GAME_HEIGHT;
+const MIN_JUMP_HEIGHT = 150;
+const GROUND_WIDTH = 2400;
+const GROUND_HEIGHT = 24;
+const GROUND_AND_CACTUS_SPEED = 0.5;
 
-let cactus1Width = 17;
-let cactus2Width = 35;
-let cactus3Width = 51;
+const CACTI_CONFIG = [
+  { width: 48 / 1.5, height: 100 / 1.5, image: "../Images/cactus_1.png" },
+  { width: 98 / 1.5, height: 100 / 1.5, image: "../Images/cactus_2.png" },
+  { width: 68 / 1.5, height: 70 / 1.5, image: "../Images/cactus_3.png" },
+];
 
-let cactusHeight = 35;
-let cactusX = 1000; //was 700
-let cactusY = boardHeight - cactusHeight;
+//Game Objects
+let player = null;
+let ground = null;
+let cactiController = null;
+let score = null;
 
-let cactus1Img;
-let cactus2Img;
-let cactus3Img;
-
-//physics
-let velocityX = -8;
-let velocityY = 0;
-let gravity = .4;
-
+let scaleRatio = null;
+let previousTime = null;
+let gameSpeed = GAME_SPEED_START;
 let gameOver = false;
-let score = 0;
+let hasAddedEventListenersForRestart = false;
+let waitingToStart = true;
 
-window.onload = function() {
-    board = document.getElementById("board");
-    board.height = boardHeight;
-    board.width = boardWidth;
+function createSprites() {
+  const playerWidthInGame = PLAYER_WIDTH * scaleRatio;
+  const playerHeightInGame = PLAYER_HEIGHT * scaleRatio;
+  const minJumpHeightInGame = MIN_JUMP_HEIGHT * scaleRatio;
+  const maxJumpHeightInGame = MAX_JUMP_HEIGHT * scaleRatio;
 
-    context = board.getContext("2d"); // used for drawing on the board
+  const groundWidthInGame = GROUND_WIDTH * scaleRatio;
+  const groundHeightInGame = GROUND_HEIGHT * scaleRatio;
 
-    // draw initial charactersaur
-    charcterImg = new Image();
-    charcterImg.src = "Images/bigestMan.png";
-    charcterImg.onload = function() {
-        context.drawImage(charcterImg, character.x, character.y, character.width, character.height);
-    }
+  player = new Player(
+    ctx,
+    playerWidthInGame,
+    playerHeightInGame,
+    minJumpHeightInGame,
+    maxJumpHeightInGame,
+    scaleRatio
+  );
 
-    cactus1Img = new Image();
-    cactus1Img.src = "/Images/cactus1.png";
+  ground = new Ground(
+    ctx,
+    groundWidthInGame,
+    groundHeightInGame,
+    GROUND_AND_CACTUS_SPEED,
+    scaleRatio
+  );
 
-    cactus2Img = new Image();
-    cactus2Img.src = "/Images/cactus2.png";
+  const cactiImages = CACTI_CONFIG.map((cactus) => {
+    const image = new Image();
+    image.src = cactus.image;
+    return {
+      image: image,
+      width: cactus.width * scaleRatio,
+      height: cactus.height * scaleRatio,
+    };
+  });
 
-    cactus3Img = new Image();
-    cactus3Img.src = "/Images/cactus3.png";
+  cactiController = new CactiController(
+    ctx,
+    cactiImages,
+    scaleRatio,
+    GROUND_AND_CACTUS_SPEED
+  );
 
-    requestAnimationFrame(update); // this function will call the update function 60 times per second
-    setInterval(placeCactus, 1000); // this function will call the placeCactus function every second
-    document.addEventListener("keydown", movecharacter);
+  score = new Score(ctx, scaleRatio);
 }
 
-function update() {
-    if (gameOver) {
-        return;
-    }
-    requestAnimationFrame(update);
-
-    context.clearRect(0, 0, boardWidth, boardHeight);
-
-    //character
-    velocityY += gravity;
-    character.y = Math.min(character.y + velocityY, characterY); //apply gravity to current character.y, making sure it doesn't exceed the ground level
-    context.drawImage(charcterImg, character.x, character.y, character.width, character.height);
-
-    //cactus
-    for (let i = 0; i < objectArray.length; i++) {
-        let cactus = objectArray[i];
-        cactus.x += velocityX;
-        context.drawImage(cactus.img, cactus.x, cactus.y, cactus.width, cactus.height);
-
-        if (detectCollision(character, cactus)) {
-            gameOver = true;
-            charcterImg.src = "Images/DeadMan.png";
-            charcterImg.onload = function() {
-                context.drawImage(charcterImg, character.x, character.y, character.width, character.height);
-            }
-        }
-    }
-
-    //score
-    context.fillStyle="black";
-    context.font = "20px courier";
-    score++;
-    context.fillText(score, 5, 20);
+function setScreen() {
+  scaleRatio = getScaleRatio();
+  canvas.width = GAME_WIDTH * scaleRatio;
+  canvas.height = GAME_HEIGHT * scaleRatio;
+  createSprites();
 }
 
-function movecharacter(e){
-    if (gameOver) {
-        return;
-    }
+setScreen();
+//Use setTimeout on Safari mobile rotation otherwise works fine on desktop
+window.addEventListener("resize", () => setTimeout(setScreen, 500));
 
-    if ((e.code == "Space" || e.code == "ArrowUp") && character.y == characterY) {
-        //jump
-        velocityY = -10;
-    }
+if (screen.orientation) {
+  screen.orientation.addEventListener("change", setScreen);
 }
 
-function placeCactus() {
-    if (gameOver) {
-        return;
-    }
+function getScaleRatio() {
+  const screenHeight = Math.min(
+    window.innerHeight,
+    document.documentElement.clientHeight
+  );
 
-    //place cactus
-    let cactus = {
-        img : null,
-        x : cactusX,
-        y : cactusY,
-        width : null,
-        height : cactusHeight
-    }
+  const screenWidth = Math.min(
+    window.innerWidth,
+    document.documentElement.clientWidth
+  );
 
-    let placeCactusChance = Math.random(); //0 - 0.9999...
-
-    if (placeCactusChance > .90) { //10% you get cactus 3
-        cactus.img = cactus3Img;
-        cactus.width = cactus3Width;
-        objectArray.push(cactus);
-    }
-    else if (placeCactusChance > .70) { //30% chance you get cactus2
-        cactus.img = cactus2Img;
-        cactus.width = cactus2Width;
-        objectArray.push(cactus);
-    }
-
-    else if (placeCactusChance > .50) { //50% you get cactus1
-        cactus.img = cactus1Img;
-        cactus.width = cactus1Width;
-        objectArray.push(cactus);
-    }
-
-    if (objectArray.length > 10) {
-        objectArray.shift(); //remove the first element from the array so that the array doesn't constantly grow
-    }
+  //window is wider than the game width
+  if (screenWidth / screenHeight < GAME_WIDTH / GAME_HEIGHT) {
+    return screenWidth / GAME_WIDTH;
+  } else {
+    return screenHeight / GAME_HEIGHT;
+  }
 }
 
-function detectCollision(a, b) {
-    return  a.x < b.x + b.width &&      //a's top left corner doesn't reach b's top right corner
-            a.x > + a.width > b.x &&    //a's top right corner passes b's top left corner
-            a.y < b.y + b.height &&     //a's top left corner doesn't reach b's bottom left corner
-            a.y + a.height > b.y;       //a's bottom left corner passes b's top left corner
+function showGameOver() {
+  const fontSize = 70 * scaleRatio;
+  ctx.font = `${fontSize}px Verdana`;
+  ctx.fillStyle = "grey";
+  const x = canvas.width / 4.5;
+  const y = canvas.height / 2;
+  ctx.fillText("GAME OVER", x, y);
 }
 
-(function(){
-    window.addEventListener("load", init);
-    
- 
- 
-    function init() {
-       let back = document.getElementById("back");
-       back.addEventListener("click", backfunc);
-       let reload = document.getElementById("reload");
-       reload.addEventListener("click", reloadfunc);
- 
-    }
- 
-    function backfunc() {
-  // redirect to play
-    window.location.href = 'menu.html';
-    }
+function setupGameReset() {
+  if (!hasAddedEventListenersForRestart) {
+    hasAddedEventListenersForRestart = true;
 
-    function reloadfunc() {
-        location.reload(true); //eventually be a reset for the canvas page
-    }
-     
- })();
+    setTimeout(() => {
+      window.addEventListener("keyup", reset, { once: true });
+      window.addEventListener("touchstart", reset, { once: true });
+    }, 1000);
+  }
+}
+
+function reset() {
+  hasAddedEventListenersForRestart = false;
+  gameOver = false;
+  waitingToStart = false;
+  ground.reset();
+  cactiController.reset();
+  score.reset();
+  gameSpeed = GAME_SPEED_START;
+}
+
+function showStartGameText() {
+  const fontSize = 40 * scaleRatio;
+  ctx.font = `${fontSize}px Verdana`;
+  ctx.fillStyle = "grey";
+  const x = canvas.width / 14;
+  const y = canvas.height / 2;
+  ctx.fillText("Tap Screen or Press Space To Start", x, y);
+}
+
+function updateGameSpeed(frameTimeDelta) {
+  gameSpeed += frameTimeDelta * GAME_SPEED_INCREMENT;
+}
+
+function clearScreen() {
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function gameLoop(currentTime) {
+  if (previousTime === null) {
+    previousTime = currentTime;
+    requestAnimationFrame(gameLoop);
+    return;
+  }
+  const frameTimeDelta = currentTime - previousTime;
+  previousTime = currentTime;
+
+  clearScreen();
+
+  if (!gameOver && !waitingToStart) {
+    //Update game objects
+    ground.update(gameSpeed, frameTimeDelta);
+    cactiController.update(gameSpeed, frameTimeDelta);
+    player.update(gameSpeed, frameTimeDelta);
+    score.update(frameTimeDelta);
+    updateGameSpeed(frameTimeDelta);
+  }
+
+  if (!gameOver && cactiController.collideWith(player)) {
+    gameOver = true;
+    setupGameReset();
+    score.setHighScore();
+  }
+
+  //Draw game objects
+  ground.draw();
+  cactiController.draw();
+  player.draw();
+  score.draw();
+
+  if (gameOver) {
+    showGameOver();
+  }
+
+  if (waitingToStart) {
+    showStartGameText();
+  }
+
+  requestAnimationFrame(gameLoop);
+}
+
+requestAnimationFrame(gameLoop);
+
+window.addEventListener("keyup", reset, { once: true });
+window.addEventListener("touchstart", reset, { once: true });

@@ -18,7 +18,7 @@
 
    function im_ready() {
  // redirect to play
-   window.location.href = 'game_page.html';
+   window.location.href = '../menu_page/game2_page.html';
    }
 
    function characterfunc() {
