@@ -27,12 +27,12 @@ function login(){
 }
 function register(){
     let passwords=document.getElementsByClassName("regPassword");
-    if(passwords[0].value==passwords[1].value){
+    if(passwords[0].value=="")
+        document.getElementById("regErr").innerText="Password Cannot be blank";
+    else if(passwords[0].value==passwords[1].value)
         location.href ="menu.html";
-    }
-    else{
+    else
         document.getElementById("regErr").innerText="Passwords Must Match";
-    }
 }
 
 function showRegistration(){

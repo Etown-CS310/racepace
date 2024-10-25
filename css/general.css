@@ -23,10 +23,8 @@ h1 {
 }
 
 nav {
-    display: flex;
-    justify-content: center;
-    background-color: rgb(173, 216, 230, .9);
-    margin-bottom: 20px;
+    background-color: rgba(173, 216, 230, 0.9);
+    padding: 10px;
 }
 
 nav a{
@@ -35,9 +33,18 @@ nav a{
     text-decoration: none;
 }
 ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     list-style-type: none;
 }
 
 nav a:hover{
     background-color: rgb(85, 160, 185);
+}
+
+.nav_links {
+    text-align: center;
+    font-family:Courier;
 }
