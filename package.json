@@ -1,0 +1,23 @@
+{
+  "name": "racepace",
+  "version": "1.0.0",
+  "description": "a running game",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Etown-CS310/racepace.git"
+  },
+  "author": "Asher Wayde, Martin Ratchford, and Rien Aldfhflkjsdfr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Etown-CS310/racepace/issues"
+  },
+  "homepage": "https://github.com/Etown-CS310/racepace#readme",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}

@@ -3,7 +3,7 @@
     margin: 0px;
 }
 body {
-    display: flex;
+    /*display: flex;*/
     align-items: center;
     justify-content: center;
     height: 100vh;
@@ -20,4 +20,5 @@ body {
 }
 canvas {
     border: 2px solid grey;
+    margin-top: 40px;
 }

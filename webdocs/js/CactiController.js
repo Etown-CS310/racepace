@@ -1,4 +1,4 @@
-import Cactus from "../js/Cactus.js";
+import Cactus from "./Cactus.js";
 
 export default class CactiController {
   CACTUS_INTERVAL_MIN = 500;
