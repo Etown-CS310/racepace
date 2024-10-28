@@ -23,12 +23,12 @@ h1 {
 }
 
 nav {
-    background-color: rgba(173, 216, 230, 0.51);
+    background-color: rgba(71, 138, 160, 0.9);
     padding: 10px;
 }
 
 nav a{
-    color:grey;
+    color:black;
     padding:25px 25px;
     text-decoration: none;
 }
@@ -41,8 +41,8 @@ ul{
 }
 
 nav a:hover{
-    color:grey;
-    background-color: rgba(173, 216, 230, 0.51);
+    color:black;
+    background-color: rgba(43, 99, 120, 0.9);
     text-decoration: none;
 }
 
@@ -57,4 +57,18 @@ nav ul {
     font-size: 30px;
     margin: 0;
     padding: 10;
+}
+
+button:hover {
+    background-color: rgba(43, 99, 120, 0.9);
+}
+
+button {
+    border: solid black;
+    text-align: center;
+    font-size: large;
+    margin: 20px;
+    font-size: 30px;
+    background-color: rgba(71, 138, 160, 0.9);
+    font-family:monospace; 
 }

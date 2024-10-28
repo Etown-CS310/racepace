@@ -6,7 +6,8 @@ section > div {
     width: 300px;
 }
 
-button {
+
+/* button {
     border: solid black;
     text-align: center;
     font-size: large;
@@ -17,8 +18,9 @@ button {
 }
 
 button:hover {
-    background-color: rgb(85, 160, 185);
-}
+    background-color: rgba(85, 160, 185, 0.662);
+} */
+
 
 #buttons {
    margin-top: 8%;

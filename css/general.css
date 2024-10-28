@@ -58,3 +58,17 @@ nav ul {
     margin: 0;
     padding: 10;
 }
+
+button:hover {
+    background-color: rgb(85, 160, 185);
+}
+
+button {
+    border: solid black;
+    text-align: center;
+    font-size: large;
+    margin: 20px;
+    font-size: 30px;
+    background-color: rgba(173, 216, 230, 0.9);
+    font-family:monospace; 
+}
