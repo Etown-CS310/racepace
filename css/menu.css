@@ -6,8 +6,6 @@ section > div {
     width: 300px;
 }
 
-
-
 button {
     border: solid black;
     text-align: center;
@@ -15,9 +13,7 @@ button {
     margin: 20px;
     font-size: 30px;
     background-color: rgb(173, 216, 230);
-    font-family:monospace;
-
-    
+    font-family:monospace; 
 }
 
 button:hover {
@@ -27,20 +23,6 @@ button:hover {
 #buttons {
    margin-top: 8%;
     
-}
-
-nav ul {
-    list-style-type: none;
-    align-content: center;
-    font-size: 30px;
-    margin: 0;
-    padding: 10;
-}
-
-
-.nav_links {
-    text-align: center;
-    font-family:Courier;
 }
 
 table.center {

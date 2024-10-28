@@ -41,10 +41,20 @@ ul{
 }
 
 nav a:hover{
+    color:white;
     background-color: rgb(85, 160, 185);
+    text-decoration: none;
 }
 
 .nav_links {
     text-align: center;
     font-family:Courier;
+}
+
+nav ul {
+    list-style-type: none;
+    align-content: center;
+    font-size: 30px;
+    margin: 0;
+    padding: 10;
 }
