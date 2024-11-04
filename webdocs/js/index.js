@@ -1,6 +1,7 @@
 "use strict";
 
 (function(){
+let url='http://localhost:8080/login';
 
 window.addEventListener('load',init);
 
@@ -15,14 +16,32 @@ function init(){
 function login(){
     let username=document.getElementById("username").value;
     let password=document.getElementById("password").value;
-    if(username=="root" & password==""){
-        location.href ="menu.html";
-
-    }
-    else{
-        document.getElementById("logErr").innerText="Invalid Username or Password";
-        document.getElementById("regBlurb").classList.remove("hidden");
-    }
+    let formData=new FormData();
+    formData.append('username',document.getElementById("username").value);
+    formData.append('password',document.getElementById("password").value);
+    //console.log(formData);
+    
+    fetch(url,{ method:"POST",body:formData})
+    .then(function(response){
+        if(response.ok)
+            return response;
+        else
+            return "Network Error: could not verify street cred";
+    })
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(json){
+        if(json.Verified){
+            location.href ="menu.html";
+        }
+        else{
+            document.getElementById("logErr").innerText="Invalid Username or Password";
+            document.getElementById("regBlurb").classList.remove("hidden");
+        }
+    })
+    .catch(console.log)
+    ;
 
 }
 function register(){
