@@ -1,7 +1,7 @@
 "use strict";
 
 (function(){
-let url='http://localhost:8080/login';
+let url='http://localhost:8080/';
 
 window.addEventListener('load',init);
 
@@ -21,7 +21,7 @@ function login(){
     formData.append('password',document.getElementById("password").value);
     //console.log(formData);
     
-    fetch(url,{ method:"POST",body:formData})
+    fetch(url+"login",{ method:"POST",body:formData})
     .then(function(response){
         if(response.ok)
             return response;
@@ -48,8 +48,27 @@ function register(){
     let passwords=document.getElementsByClassName("regPassword");
     if(passwords[0].value=="")
         document.getElementById("regErr").innerText="Password Cannot be blank";
-    else if(passwords[0].value==passwords[1].value)
-        location.href ="menu.html";
+    else if(passwords[0].value==passwords[1].value){
+        // send a post request to the server to add a user
+        let regForm=new FormData(document.getElementById('register'));
+        fetch(url+"register",{method:"POST",body:regForm})
+        .then((response)=>{
+            if(response.ok)
+                return response.json();
+            else
+                return "Network Error: could not register internet sucks roflol";
+        })
+        .then((json)=>{
+            if(json.Success){
+                location.href ="index.html";
+            }
+            else{
+                document.getElementById("regErr").innerText="Registration Error Please get good lol";
+            }
+        })
+        .catch(console.log)
+        ;
+    }
     else
         document.getElementById("regErr").innerText="Passwords Must Match";
 }
