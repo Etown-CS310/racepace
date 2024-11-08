@@ -59,5 +59,10 @@ async function getDBConnection(){
     return db;
 }
 
+app.post('/character', async function (req, res) {
+    let character = req.body;
+    res.type("text").send(character); 
+});
+
 app.listen(port);
 console.log("server started on http://localhost:"+port);
