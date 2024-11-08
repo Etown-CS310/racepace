@@ -13,8 +13,8 @@ const db_path='racepace.db';
 app.use(express.static("webdocs"));
 app.use(multer().none());
 
-app.get('/hello',(req,res) => {
-    res.type('text').send("RacePaceComingSoon");
+app.get('/reqChar',async function(req,res){
+    res.status(200).type('text').send('jakob');
 });
 
 app.post('/login',async function (req,res){
