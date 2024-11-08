@@ -14,7 +14,7 @@ app.use(express.static("webdocs"));
 app.use(multer().none());
 
 app.get('/reqChar',async function(req,res){
-    res.status(200).type('text').send('jakob');
+    res.status(200).json({"character": 'jakob'});
 });
 
 app.post('/login',async function (req,res){
