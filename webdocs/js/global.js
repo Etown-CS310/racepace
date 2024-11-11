@@ -28,8 +28,6 @@ and to enforce that the player be logged in.
             /* Exit the function: */
             //return;
           }
-        
-      
   
-
+      
 })();

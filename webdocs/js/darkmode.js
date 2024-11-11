@@ -4,7 +4,7 @@
 
     
 
-    function darkmode() {
+    function toggleDarkmode() {
         
     }
 
