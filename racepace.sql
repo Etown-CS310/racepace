@@ -5,7 +5,8 @@ create table users(
     user_id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE,
     password TEXT,
-    current_character INTEGER DEFAULT 0
+    character_id INTEGER DEFAULT 1,
+    highscore INTEGER DEFAULT 0
 );
 
 create table characters(
@@ -23,5 +24,5 @@ values('Eliud');
 insert into characters(character_name)
 values('Grant');
 
-insert into users(username,password,current_character)
-values ('root','',0);
+insert into users(username,password,character_id)
+values ('root','',1);
