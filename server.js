@@ -21,19 +21,10 @@ app.use(cookieParser());
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
-app.get('/reqChar',async function(req,res){
-    let token=req.cookies.jwt;
-    if(token){
-        jwt.verify(token,jwtSecret,async (err,decodedCookie)=>{
-            let username=decodedCookie.username;
-            const userInfo = await getUserInfo(username);
-            const char= await getCharacterInfo(userInfo[0].character_id);
-            console.log(userInfo,char);
-            res.status(200).json({"character": char[0].character_name});
-        });
-    }
-    else
-        res.status(401).json({msg:"you not logged in lol"});
+app.post('/register',async function(req,res) {
+    const password_cipher=await bcrypt.hash(req.body.password,10)
+    const success=await insertUser(req.body.username,password_cipher);
+    res.json({'Success':success});
 });
 
 app.post('/login',async function (req,res){
@@ -52,17 +43,11 @@ app.post('/login',async function (req,res){
         res.status(200).type('json').send({'Verified':1});
     }
     else{
-        res.status(400).type('json').send({'Verified':0});
+        res.status(401).type('json').send({'Verified':0});
     }
 });
 
-app.post('/register',async function(req,res) {
-    const password_cipher=await bcrypt.hash(req.body.password,10)
-    const success=await insertUser(req.body.username,password_cipher);
-    res.json({'Success':success});
-});
-
-app.get('/userStatus',async function(req,res){
+app.get('/getUserStatus',async function(req,res){
     const token = req.cookies.jwt;
     if(token){
         jwt.verify(token, jwtSecret, (err, decodedToken)=>{
@@ -77,6 +62,33 @@ app.get('/userStatus',async function(req,res){
     else
         res.sendFile(__dirname+"/webdocs/index.html");
     
+});
+
+app.post('/character', async function (req, res) {
+    let token=req.cookies.jwt;
+    if(token){
+        jwt.verify(token,jwtSecret,async (err,decodedCookie)=>{
+            let username=decodedCookie.username;
+            let character = req.body.character;
+            updateCharacter(character,username);
+            res.type("json").send({'char':character});
+        });
+    }
+});
+
+app.get('/reqChar',async function(req,res){
+    let token=req.cookies.jwt;
+    if(token){
+        jwt.verify(token,jwtSecret,async (err,decodedCookie)=>{
+            let username=decodedCookie.username;
+            const userInfo = await getUserInfo(username);
+            const char= await getCharacterInfo(userInfo[0].character_id);
+            //console.log(userInfo,char);
+            res.status(200).json({"character": char[0].character_name});
+        });
+    }
+    else
+        res.status(401).json({'character':'jakob',msg:"you not logged in lol"});
 });
 
 async function insertUser(username,password){
@@ -110,10 +122,14 @@ async function getDBConnection(){
     return db;
 }
 
-app.post('/character', async function (req, res) {
-    let character = req.body;
-    res.type("text").send(character); 
-});
+async function updateCharacter(character,username){
+    const db = await getDBConnection();
+    let sql = 'select * from characters where character_name=?;';
+    let char_id= await db.all(sql,[character]);
+    char_id=char_id[0]['character_id'];
+    sql='update users set character_id=? where username=?;';
+    await db.run(sql,[char_id,username]);
+}
 
 app.listen(port);
 console.log("server started on http://localhost:"+port);
