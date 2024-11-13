@@ -11,7 +11,7 @@ export default class Ground {
       this.y = this.canvas.height - this.height;
   
       this.groundImage = new Image();
-      this.groundImage.src = "../Images/ground.png";
+      this.groundImage.src = "../Images/track_ground.png";
     }
   
     update(gameSpeed, frameTimeDelta) {
