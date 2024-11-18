@@ -74,3 +74,9 @@ th, td {
     background-color: hwb(0 0% 100% / 0.326);
     border-radius: 20px;
 }
+
+#selectChar {
+    margin: auto;
+    place-content: center;
+    margin-left: 45%;
+}
