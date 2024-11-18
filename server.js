@@ -74,6 +74,8 @@ app.post('/character', async function (req, res) {
             res.type("json").send({'char':character});
         });
     }
+    else
+        res.status(401).json({"char":"you not logged in lol"});
 });
 
 app.get('/reqChar',async function(req,res){
