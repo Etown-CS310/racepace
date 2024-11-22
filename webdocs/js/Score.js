@@ -20,6 +20,9 @@ export default class Score {
       const highScore = Number(localStorage.getItem(this.HIGH_SCORE_KEY));
       if (this.score > highScore) {
         localStorage.setItem(this.HIGH_SCORE_KEY, Math.floor(this.score));
+        let data= new FormData();
+        data.append('highScore',highScore);
+        fetch('http://localhost:8080/setScore',{method:"POST",body:data});
       }
     }
   

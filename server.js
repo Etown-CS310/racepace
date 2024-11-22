@@ -98,6 +98,30 @@ app.get('/reqChar',async function(req,res){
         res.status(401).json({'character':'jakob',msg:"you not logged in lol"});
 });
 
+app.post('/setScore',async function(req,res){
+    let token=req.cookies.jwt;
+    if(token){
+        jwt.verify(token,jwtSecret,async (err,decodedCookie)=>{
+            let username=decodedCookie.username;
+            const userInfo = await getUserInfo(username);
+            if(userInfo[0].highscore<req.body.highScore){
+                updateHighscore(req.body.highScore,username);
+                res.status(200).send();
+            }
+            
+            
+        });
+    }
+    else
+        res.status(300).send();
+
+});
+
+app.get('/getHighScores', async function(req,res){
+    const scores = await getHighScores();
+    res.status(200).json(scores);
+});
+
 async function insertUser(username,password){
     const userInfo=await getUserInfo(username);
     if(userInfo.length==1)
@@ -136,6 +160,18 @@ async function updateCharacter(character,username){
     char_id=char_id[0]['character_id'];
     sql='update users set character_id=? where username=?;';
     await db.run(sql,[char_id,username]);
+}
+
+async function updateHighscore(highScore,username) {
+    const db = await getDBConnection();
+    const sql= "update users set highscore=? where username=?";
+    await db.run(sql,[highScore,username]);
+}
+
+async function getHighScores(){
+    const db = await getDBConnection();
+    const sql= "select username,highscore from users order by highscore desc limit 10;";
+    return await db.all(sql);
 }
 
 app.listen(port);
