@@ -29,6 +29,7 @@ app.post('/register',async function(req,res) {
 
 app.post('/login',async function (req,res){
     const userInfo=await getUserInfo(req.body.username);
+    if(userInfo){
     const result = await bcrypt.compare(req.body.password,userInfo[0].password);
     //console.log(userInfo[0].password);
     if(userInfo.length==1 && result){
@@ -41,6 +42,10 @@ app.post('/login',async function (req,res){
         );
         res.cookie('jwt',token,{'maxAge':maxAge*1000,httpOnly:true});
         res.status(200).type('json').send({'Verified':1});
+    }
+    else{
+        res.status(401).type('json').send({'Verified':0});
+    }
     }
     else{
         res.status(401).type('json').send({'Verified':0});

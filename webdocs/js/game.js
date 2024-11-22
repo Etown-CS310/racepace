@@ -37,6 +37,17 @@ let gameSpeed = GAME_SPEED_START;
 let gameOver = false;
 let hasAddedEventListenersForRestart = false;
 let waitingToStart = true;
+let importedChar;
+await fetch('http://localhost:8080/reqChar') //Static url for the Requested Character
+    .then(function(response){
+      if(response.ok)
+        return response.json();
+      else
+        return "Network Error: cannot get character";
+    })
+    .then(function(response){
+      importedChar = response.character;
+    });
 
 function createSprites() {
   const playerWidthInGame = PLAYER_WIDTH * scaleRatio;
@@ -47,13 +58,18 @@ function createSprites() {
   const groundWidthInGame = GROUND_WIDTH * scaleRatio;
   const groundHeightInGame = GROUND_HEIGHT * scaleRatio;
 
+  
+
+  
+    console.log(importedChar);
   player = new Player(
     ctx,
     playerWidthInGame,
     playerHeightInGame,
     minJumpHeightInGame,
     maxJumpHeightInGame,
-    scaleRatio
+    scaleRatio,
+    importedChar
   );
 
   ground = new Ground(
@@ -162,7 +178,7 @@ function updateGameSpeed(frameTimeDelta) {
 }
 
 function clearScreen() {
-  ctx.fillStyle = "white";
+  ctx.fillStyle = "skyblue";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 

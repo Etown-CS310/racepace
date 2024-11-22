@@ -10,7 +10,7 @@ export default class Player {
   GRAVITY = 0.4;
    
 
-  constructor(ctx, width, height, minJumpHeight, maxJumpHeight, scaleRatio) {
+  constructor(ctx, width, height, minJumpHeight, maxJumpHeight, scaleRatio,importedChar) {
     this.ctx = ctx;
     this.canvas = ctx.canvas;
     this.width = width;
@@ -18,63 +18,61 @@ export default class Player {
     this.minJumpHeight = minJumpHeight;
     this.maxJumpHeight = maxJumpHeight;
     this.scaleRatio = scaleRatio;
-    this.importedChar = "";
-
-    this.importedChar = this.character();
+    this.importedChar = importedChar;
 
     this.x = 10 * scaleRatio;
     this.y = this.canvas.height - this.height - 1.5 * scaleRatio;
     this.yStandingPosition = this.y;
 
-    // this.standingStillImage = new Image();
-    // this.standingStillImage.src = "../Characters/"+this.importedChar+"/l0_sprite_2.png";
-    // this.image = this.standingStillImage;
-
     this.standingStillImage = new Image();
-    this.standingStillImage.src = "../Characters/jakob/l0_sprite_2.png";
+    this.standingStillImage.src = "../Characters/"+this.importedChar+"/l0_sprite_2.png";
     this.image = this.standingStillImage;
 
+    // this.standingStillImage = new Image();
+    // this.standingStillImage.src = "../Characters/jakob/l0_sprite_2.png";
+    // this.image = this.standingStillImage;
+
     // Adding four run images for the animation
     // Adding four run images for the animation
-    // const dinoRunImage1 = new Image();
-    // dinoRunImage1.src = "../Characters/"+this.importedChar+"/l0_sprite_1.png";
-    // dinoRunImage1.onload = () => console.log("dinoRunImage1 loaded successfully.");
-    // dinoRunImage1.onerror = () => console.error("Error loading dinoRunImage1 at path:", dinoRunImage1.src);
-
-    // const dinoRunImage2 = new Image();
-    // dinoRunImage2.src = "../Characters/"+importedChar+"/l0_sprite_2.png";
-    // dinoRunImage2.onload = () => console.log("dinoRunImage2 loaded successfully.");
-    // dinoRunImage2.onerror = () => console.error("Error loading dinoRunImage2 at path:", dinoRunImage2.src);
-
-    // const dinoRunImage3 = new Image();
-    // dinoRunImage3.src = "../Characters/"+importedChar+"/l0_sprite_3.png";
-    // dinoRunImage3.onload = () => console.log("dinoRunImage3 loaded successfully.");
-    // dinoRunImage3.onerror = () => console.error("Error loading dinoRunImage3 at path:", dinoRunImage3.src);
-
-    // const dinoRunImage4 = new Image();
-    // dinoRunImage4.src = "../Characters/"+importedChar+"/l0_sprite_4.png";
-    // dinoRunImage4.onload = () => console.log("dinoRunImage4 loaded successfully.");
-    // dinoRunImage4.onerror = () => console.error("Error loading dinoRunImage4 at path:", dinoRunImage4.src);
-
     const dinoRunImage1 = new Image();
-    dinoRunImage1.src = "../Characters/jakob/l0_sprite_1.png";
+    dinoRunImage1.src = "../Characters/"+this.importedChar+"/l0_sprite_1.png";
     dinoRunImage1.onload = () => console.log("dinoRunImage1 loaded successfully.");
     dinoRunImage1.onerror = () => console.error("Error loading dinoRunImage1 at path:", dinoRunImage1.src);
 
     const dinoRunImage2 = new Image();
-    dinoRunImage2.src = "../Characters/jakob/l0_sprite_2.png";
+    dinoRunImage2.src = "../Characters/"+importedChar+"/l0_sprite_2.png";
     dinoRunImage2.onload = () => console.log("dinoRunImage2 loaded successfully.");
     dinoRunImage2.onerror = () => console.error("Error loading dinoRunImage2 at path:", dinoRunImage2.src);
 
     const dinoRunImage3 = new Image();
-    dinoRunImage3.src = "../Characters/jakob/l0_sprite_3.png";
+    dinoRunImage3.src = "../Characters/"+importedChar+"/l0_sprite_3.png";
     dinoRunImage3.onload = () => console.log("dinoRunImage3 loaded successfully.");
     dinoRunImage3.onerror = () => console.error("Error loading dinoRunImage3 at path:", dinoRunImage3.src);
 
     const dinoRunImage4 = new Image();
-    dinoRunImage4.src = "../Characters/jakob/l0_sprite_4.png";
+    dinoRunImage4.src = "../Characters/"+importedChar+"/l0_sprite_4.png";
     dinoRunImage4.onload = () => console.log("dinoRunImage4 loaded successfully.");
     dinoRunImage4.onerror = () => console.error("Error loading dinoRunImage4 at path:", dinoRunImage4.src);
+
+    // const dinoRunImage1 = new Image();
+    // dinoRunImage1.src = "../Characters/jakob/l0_sprite_1.png";
+    // dinoRunImage1.onload = () => console.log("dinoRunImage1 loaded successfully.");
+    // dinoRunImage1.onerror = () => console.error("Error loading dinoRunImage1 at path:", dinoRunImage1.src);
+
+    // const dinoRunImage2 = new Image();
+    // dinoRunImage2.src = "../Characters/jakob/l0_sprite_2.png";
+    // dinoRunImage2.onload = () => console.log("dinoRunImage2 loaded successfully.");
+    // dinoRunImage2.onerror = () => console.error("Error loading dinoRunImage2 at path:", dinoRunImage2.src);
+
+    // const dinoRunImage3 = new Image();
+    // dinoRunImage3.src = "../Characters/jakob/l0_sprite_3.png";
+    // dinoRunImage3.onload = () => console.log("dinoRunImage3 loaded successfully.");
+    // dinoRunImage3.onerror = () => console.error("Error loading dinoRunImage3 at path:", dinoRunImage3.src);
+
+    // const dinoRunImage4 = new Image();
+    // dinoRunImage4.src = "../Characters/jakob/l0_sprite_4.png";
+    // dinoRunImage4.onload = () => console.log("dinoRunImage4 loaded successfully.");
+    // dinoRunImage4.onerror = () => console.error("Error loading dinoRunImage4 at path:", dinoRunImage4.src);
 
 
     this.dinoRunImages.push(dinoRunImage1);
@@ -98,19 +96,6 @@ export default class Player {
     window.addEventListener("touchend", this.touchend);
   }
 
-  character = () => {
-    fetch('http://localhost:8080/reqChar') //Static url for the Requested Character
-    .then(function(response){
-      if(response.ok)
-        return response.json();
-      else
-        return "Network Error: cannot get character";
-    })
-    .then(function(response){
-      return response.character
-    })
-    ;
-  }
 
   touchstart = () => {
     this.jumpPressed = true;
