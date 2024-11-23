@@ -1,7 +1,8 @@
 "use strict";
 
 (function(){
-let url='http://localhost:8080/';
+//let url='http://localhost:8080/';
+let url='https://34.47.21.233/';
 
 window.addEventListener('load',init);
 
