@@ -52,23 +52,6 @@ app.post('/login',async function (req,res){
     }
 });
 
-app.get('/getUserStatus',async function(req,res){
-    const token = req.cookies.jwt;
-    if(token){
-        jwt.verify(token, jwtSecret, (err, decodedToken)=>{
-            const login_status = decodedToken.login;
-            if(login_status){
-                res.status(200).type('text').send("you did it");
-            }
-            else
-                res.sendFile(__dirname+"/webdocs/index.html");
-        });
-    }
-    else
-        res.sendFile(__dirname+"/webdocs/index.html");
-    
-});
-
 app.post('/character', async function (req, res) {
     let token=req.cookies.jwt;
     if(token){
