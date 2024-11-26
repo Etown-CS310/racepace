@@ -178,8 +178,16 @@ function updateGameSpeed(frameTimeDelta) {
 }
 
 function clearScreen() {
-  ctx.fillStyle = "skyblue";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  // ctx.fillStyle = "skyblue";
+  // ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  const img = new Image(); // Create a new image object
+  img.src = "../Images/grass_ground_stand.png"; // Set the image source
+
+  img.onload = function() { // Wait until the image is loaded
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height); // Draw the image on the canvas
+  };
+
 }
 
 function gameLoop(currentTime) {

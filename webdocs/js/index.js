@@ -1,8 +1,13 @@
 "use strict";
 
 (function(){
+<<<<<<< HEAD
 //let url='http://localhost:8080/';
 let url='http://34.47.21.233/racepace/';
+=======
+let url='http://localhost:8080/';
+//let url='https://34.47.21.233/';
+>>>>>>> d90fa32 (changed background of game)
 
 window.addEventListener('load',init);
 
