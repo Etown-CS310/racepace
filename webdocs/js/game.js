@@ -38,7 +38,7 @@ let gameOver = false;
 let hasAddedEventListenersForRestart = false;
 let waitingToStart = true;
 let importedChar;
-await fetch('http://localhost:8080/reqChar') //Static url for the Requested Character
+await fetch(window.location.origin+'/reqChar') //Static url for the Requested Character
     .then(function(response){
       if(response.ok)
         return response.json();

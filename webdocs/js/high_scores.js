@@ -3,7 +3,7 @@
     window.addEventListener('load',init);
 
     function init(){
-        fetch('http://localhost:8080/getHighScores')
+        fetch(window.location.origin+'/getHighScores')
         .then((response)=>{
             if(response.ok)
                 return response.json();
