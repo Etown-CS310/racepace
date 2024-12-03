@@ -13,6 +13,7 @@ function init(){
     document.getElementById("showReg").addEventListener("click",showRegistration);
     document.getElementById("showLog").addEventListener("click",showLogin);
     document.getElementById("regButton").addEventListener("click",register);
+    document.getElementById("logout").addEventListener("click", logout); // logout function to delete cookie
 }
 
 function login(){
@@ -89,6 +90,10 @@ function showLogin(){
     regBox.classList.add("hidden");
     document.getElementById("logBox").classList.remove("hidden");
     document.getElementById("login").innerText="login";
+}
+
+function logout(){
+
 }
 
 
