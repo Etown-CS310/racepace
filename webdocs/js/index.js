@@ -93,7 +93,10 @@ function showLogin(){
 }
 
 function logout(){
-
+    browser.cookies.remove({
+        url: window.location.origin,
+        name: "jwt",
+      });
 }
 
 
