@@ -13,7 +13,6 @@ function init(){
     document.getElementById("showReg").addEventListener("click",showRegistration);
     document.getElementById("showLog").addEventListener("click",showLogin);
     document.getElementById("regButton").addEventListener("click",register);
-    document.getElementById("logout").addEventListener("click", logout); // logout function to delete cookie
 }
 
 function login(){
@@ -92,12 +91,7 @@ function showLogin(){
     document.getElementById("login").innerText="login";
 }
 
-function logout(){
-    browser.cookies.remove({
-        url: window.location.origin,
-        name: "jwt",
-      });
-}
+
 
 
 
