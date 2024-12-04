@@ -21,7 +21,7 @@ export default class Score {
       if (this.score > highScore) {
         localStorage.setItem(this.HIGH_SCORE_KEY, Math.floor(this.score));
         let data= new FormData();
-        data.append('highScore',highScore);
+        data.append('highScore',this.score);
         fetch(window.location.origin+'/setScore',{method:"POST",body:data});
       }
     }
