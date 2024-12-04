@@ -17,6 +17,8 @@ body {
     user-select: none;
     outline: none;
     -webkit-tap-highlight-color: rbga(255, 255, 255, 0);
+
+    background-color: rgba(87, 165, 192, 0.9);
 }
 canvas {
     border: 2px solid grey;
