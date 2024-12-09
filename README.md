@@ -11,7 +11,7 @@
 
 ## Website
 
-  -  Click [HERE](https://racepace-437415.uk.r.appspot.com/) to go to the website
+  -  Click [HERE](http://racepace.us) to go to the website
 
 ## Inspiration
 
@@ -25,6 +25,70 @@ The project has a login page, account creation, main menu page with basic UI for
 
 Martin created the menu pages, Asher made the login portal and helped Martin, and I made the basic version of the game. 
 
-## Next Steps
+## How to set up the project
 
-As we move forward we hope to be able to make stages within the infinite scrolling game, create skins and selection for skins, add more basic features such as pause functionality, adjustable settings, acheivemnt system, and leader board rankings of players.
+-install node.js
+-navigate to the directory for racepace in a node ternminal
+-npm install
+
+Just Test with **node start** and it should be running
+
+# API
+
+### /register
+#### POST
+
+**inputs**
+-username:String
+-password:String
+
+**outputs**
+-Success:boolean
+
+
+### /login
+#### POST
+
+**inputs**
+-username:String
+-password:String
+
+**outputs**
+-Verified:boolean
+-jwtAuthToken
+
+### /character
+#### POST
+
+**inputs**
+-jwtAuthToken
+
+**outputs**
+-char:String
+
+### /reqChar
+#### GET
+
+**inputs**
+-jwtAuthToken
+
+**outputs**
+-character:String
+-(only for fail) msg:String
+
+### /setScore
+#### POST
+
+**inputs**
+-jwtAuthToken
+
+**outputs**
+-status code
+
+### /getHighScores
+#### GET
+
+**outputs**
+**[10]**
+-username:String
+-highscore:INT
