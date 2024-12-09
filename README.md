@@ -27,9 +27,9 @@ Martin created the menu pages, Asher made the login portal and helped Martin, an
 
 ## How to set up the project
 
--install node.js
--navigate to the directory for racepace in a node ternminal
--npm install
+- install node.js
+- navigate to the directory for racepace in a node ternminal
+- npm install
 
 Just Test with **node start** and it should be running
 
@@ -39,56 +39,56 @@ Just Test with **node start** and it should be running
 #### POST
 
 **inputs**
--username:String
--password:String
+- username:String
+- password:String
 
 **outputs**
--Success:boolean
+- Success:boolean
 
 
 ### /login
 #### POST
 
 **inputs**
--username:String
--password:String
+- username:String
+- password:String
 
 **outputs**
--Verified:boolean
--jwtAuthToken
+- Verified:boolean
+- jwtAuthToken
 
 ### /character
 #### POST
 
 **inputs**
--jwtAuthToken
+- jwtAuthToken
 
 **outputs**
--char:String
+- char:String
 
 ### /reqChar
 #### GET
 
 **inputs**
--jwtAuthToken
+- jwtAuthToken
 
 **outputs**
--character:String
--(only for fail) msg:String
+- character:String
+- (only for fail) msg:String
 
 ### /setScore
 #### POST
 
 **inputs**
--jwtAuthToken
+- jwtAuthToken
 
 **outputs**
--status code
+- status code
 
 ### /getHighScores
 #### GET
 
 **outputs**
 **[10]**
--username:String
--highscore:INT
+- username:String
+- highscore:INT
